@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.sapient.entity.Gallery;
+import com.project.sapient.interfaces.IGalleryDao;
 import com.project.sapient.utils.DbConnect;
-import com.sapient.reps.entity.Gallery;
-import com.sapient.reps.interfaces.IGalleryDao;
 
 public class GalleryDOO implements IGalleryDao {
 

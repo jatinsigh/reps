@@ -1,4 +1,4 @@
-package com.sapient.reps.entity;
+package com.project.sapient.entity;
 
 public class UserRegister {
 	private int userId;

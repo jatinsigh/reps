@@ -1,8 +1,8 @@
 package com.project.sapient.client;
 
 import com.project.sapient.dao.SocialLinksDOO;
-import com.sapient.reps.entity.SocialLinks;
-import com.sapient.reps.interfaces.ISocialLinksDAO;
+import com.project.sapient.entity.SocialLinks;
+import com.project.sapient.interfaces.ISocialLinksDAO;
 
 public class App {
 

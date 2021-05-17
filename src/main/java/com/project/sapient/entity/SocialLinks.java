@@ -1,4 +1,4 @@
-package com.sapient.reps.entity;
+package com.project.sapient.entity;
 
 public class SocialLinks {
 	private int linkId; // links id

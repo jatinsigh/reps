@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.sapient.entity.UserRegister;
+import com.project.sapient.interfaces.IUserRegisterDAO;
 import com.project.sapient.utils.DbConnect;
-import com.sapient.reps.entity.UserRegister;
-import com.sapient.reps.interfaces.IUserRegisterDAO;
 
 public class UserRegisterDOO implements IUserRegisterDAO {
 

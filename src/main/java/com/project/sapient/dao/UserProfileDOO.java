@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.sapient.entity.UserProfile;
+import com.project.sapient.interfaces.IUserProfileDAO;
 import com.project.sapient.utils.DbConnect;
-import com.sapient.reps.entity.UserProfile;
-import com.sapient.reps.interfaces.IUserProfileDAO;
 
 public class UserProfileDOO implements IUserProfileDAO {
 

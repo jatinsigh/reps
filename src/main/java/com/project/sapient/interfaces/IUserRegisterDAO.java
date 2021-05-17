@@ -1,8 +1,8 @@
-package com.sapient.reps.interfaces;
+package com.project.sapient.interfaces;
 
 import java.util.List;
 
-import com.sapient.reps.entity.UserRegister;
+import com.project.sapient.entity.UserRegister;
 
 public interface IUserRegisterDAO {
 

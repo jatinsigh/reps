@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sapient.dao.UserRegisterDOO;
-import com.sapient.reps.entity.UserRegister;
-import com.sapient.reps.interfaces.IUserRegisterDAO;
+import com.project.sapient.entity.UserRegister;
+import com.project.sapient.interfaces.IUserRegisterDAO;
 
 @RestController
 @RequestMapping("/api")

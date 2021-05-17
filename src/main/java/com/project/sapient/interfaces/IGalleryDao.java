@@ -1,8 +1,8 @@
-package com.sapient.reps.interfaces;
+package com.project.sapient.interfaces;
 
 import java.util.List;
 
-import com.sapient.reps.entity.Gallery;
+import com.project.sapient.entity.Gallery;
 
 public interface IGalleryDao {
 	public boolean insertNewImage(Gallery user);

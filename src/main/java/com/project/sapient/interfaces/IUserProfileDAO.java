@@ -1,8 +1,8 @@
-package com.sapient.reps.interfaces;
+package com.project.sapient.interfaces;
 
 import java.util.List;
 
-import com.sapient.reps.entity.UserProfile;
+import com.project.sapient.entity.UserProfile;
 
 public interface IUserProfileDAO {
 

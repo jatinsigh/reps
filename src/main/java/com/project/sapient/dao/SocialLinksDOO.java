@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.sapient.entity.SocialLinks;
+import com.project.sapient.interfaces.ISocialLinksDAO;
 import com.project.sapient.utils.DbConnect;
-import com.sapient.reps.entity.SocialLinks;
-import com.sapient.reps.interfaces.ISocialLinksDAO;
 
 public class SocialLinksDOO implements ISocialLinksDAO {
 
