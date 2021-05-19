@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.sapient.Exceptions.ImageAlreadyPresent;
+import com.project.sapient.Exceptions.InvalidId;
 import com.project.sapient.entity.Gallery;
 import com.project.sapient.interfaces.IGalleryDao;
 import com.project.sapient.utils.DbConnect;
@@ -15,6 +17,17 @@ public class GalleryDOO implements IGalleryDao {
 	@Override
 	public boolean insertNewImage(Gallery images) {
 		// TODO Auto-generated method stub
+		try {
+			UserRegisterDOO.checkIdOfUser(images.getUserId());
+			checkUrlOfImage(images.getImageUrl(), images.getUserId());
+		} catch (InvalidId e) {
+			e.printStackTrace();
+			return false;
+		} catch (ImageAlreadyPresent e) {
+			e.printStackTrace();
+			return false;
+		}
+
 		String sql = "insert into Gallery values(?,?,?)";
 
 		try {
@@ -29,6 +42,23 @@ public class GalleryDOO implements IGalleryDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	private void checkUrlOfImage(String imageUrl, int uid) throws ImageAlreadyPresent {
+		String sql = "Select * from Gallery where imageUrl=? and userId=?";
+
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setString(1, imageUrl);
+			ps.setInt(2, uid);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+				throw new ImageAlreadyPresent("ImageAlreadyPresent for user");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

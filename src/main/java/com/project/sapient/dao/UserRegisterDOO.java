@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.sapient.Exceptions.DuplicateEmail;
+import com.project.sapient.Exceptions.InvalidId;
+import com.project.sapient.Exceptions.PasswordIsWeak;
+import com.project.sapient.Exceptions.PasswordTooSmall;
 import com.project.sapient.entity.UserRegister;
 import com.project.sapient.interfaces.IUserRegisterDAO;
 import com.project.sapient.utils.DbConnect;
@@ -14,6 +18,20 @@ public class UserRegisterDOO implements IUserRegisterDAO {
 
 	@Override
 	public boolean insertUser(UserRegister user) {
+		try {
+			passwordCheck(user.getPassword());
+			duplicateEmail(user.getEmailId());
+		} catch (DuplicateEmail e1) {
+			e1.printStackTrace();
+			return false;
+		} catch (PasswordTooSmall e) {
+			e.printStackTrace();
+			return false;
+		} catch (PasswordIsWeak e) {
+			e.printStackTrace();
+			return false;
+		}
+
 		String sql = "insert into UserRegister values(?,?,?,?)";
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
@@ -27,6 +45,40 @@ public class UserRegisterDOO implements IUserRegisterDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	private void passwordCheck(String password) throws PasswordTooSmall, PasswordIsWeak {
+		if (password.length() < 8)
+			throw new PasswordTooSmall("PasswordTooSmall");
+		List<Boolean> distinctValueIndicator = new ArrayList<>(List.of(false, false, false, false));
+		for (int i = 0; i < password.length(); i++) {
+			if (password.charAt(i) >= '0' && password.charAt(i) <= '9')
+				distinctValueIndicator.set(0, true);
+			else if (password.charAt(i) >= 'a' && password.charAt(i) <= 'z')
+				distinctValueIndicator.set(1, true);
+			else if (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z')
+				distinctValueIndicator.set(2, true);
+			else
+				distinctValueIndicator.set(3, true);
+		}
+		if (distinctValueIndicator.contains(false)) {
+			throw new PasswordIsWeak("PaaswordIsWeek");
+		}
+	}
+
+	private void duplicateEmail(String emailId) throws DuplicateEmail {
+		String sql = "Select * from UserRegister where emailId=?";
+
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setString(1, emailId);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next())
+				throw new DuplicateEmail("Email is Present");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public List<UserRegister> getAllUserRegisterInfo() {
@@ -45,8 +97,14 @@ public class UserRegisterDOO implements IUserRegisterDAO {
 
 	@Override
 	public List<UserRegister> getUser(int uid) {
-		String sql = "select UserId,UserName,EmailId,password from UserRegister where userId=?";
 		List<UserRegister> userList = new ArrayList<>();
+		try {
+			checkIdOfUser(uid);
+		} catch (InvalidId e1) { // TODO Auto-generated
+			e1.printStackTrace();
+			return userList;
+		}
+		String sql = "select UserId,UserName,EmailId,password from UserRegister where userId=?";
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
 			ps.setInt(1, uid);
@@ -66,6 +124,21 @@ public class UserRegisterDOO implements IUserRegisterDAO {
 		return userList;
 	}
 
+	public static void checkIdOfUser(int uid) throws InvalidId {
+		String sql = "Select * from UserRegister where userId=?";
+
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setInt(1, uid);
+			ResultSet rs = ps.executeQuery();
+			if (!rs.next()) {
+				throw new InvalidId("User");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public List<UserRegister> getUserByEmailAndPwd(String email, String Pwd) {
 		String sql = "select UserId,UserName,EmailId,password from UserRegister where EmailId = ? And password= ?";
