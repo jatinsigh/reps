@@ -8,17 +8,13 @@ public class App {
 
 	public static void main(String[] args) {
 
-		UserRegister user = new UserRegister();
-
-		user.setUserId(12);
-		user.setUserName("Jello");
-		user.setEmailId("jello@gmail.com");
-		user.setPassword("Hello@123");
-
 		IUserRegisterDAO dao = new UserRegisterDOO();
 
-		Boolean b = dao.insertUser(user);
-		System.out.println(b);
+		for (UserRegister user : dao.getAllUserRegisterInfo()) {
+			System.out.println(user.getPassword());
+		}
+		// Boolean b = dao.updatePassword("shumbham@gmail.com", "Shu@12345");
+		// System.out.println(b);
 	//	IUserProfileDAO dao = new UserProfileDOO();
 		// String Email = "jat@gmail.com", pwd = "hi@123";
 		

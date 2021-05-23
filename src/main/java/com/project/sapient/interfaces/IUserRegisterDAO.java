@@ -13,4 +13,6 @@ public interface IUserRegisterDAO {
 	public List<UserRegister> getUser(int uid);
 
 	public List<UserRegister> getUserByEmailAndPwd(String email, String Pwd);
+
+	Boolean updatePassword(String email, String newPassword);
 }

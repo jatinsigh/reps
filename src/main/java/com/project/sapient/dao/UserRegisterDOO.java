@@ -47,7 +47,7 @@ public class UserRegisterDOO implements IUserRegisterDAO {
 		return false;
 	}
 
-	private void passwordCheck(String password) throws PasswordTooSmall, PasswordIsWeak {
+	public static void passwordCheck(String password) throws PasswordTooSmall, PasswordIsWeak {
 		if (password.length() < 8)
 			throw new PasswordTooSmall("PasswordTooSmall");
 		List<Boolean> distinctValueIndicator = new ArrayList<>(List.of(false, false, false, false));
@@ -161,5 +161,19 @@ public class UserRegisterDOO implements IUserRegisterDAO {
 			e.printStackTrace();
 		}
 		return userList;
+	}
+
+	@Override
+	public Boolean updatePassword(String email, String newPassword) {
+		String sql = "UPDATE UserRegister SET password = ?  WHERE emailId = ? ";
+		try {
+			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
+			ps.setString(1, newPassword);
+			ps.setString(2, email);
+			return ps.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

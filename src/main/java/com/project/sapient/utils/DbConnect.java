@@ -1,26 +1,33 @@
 package com.project.sapient.utils;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class DbConnect {
 
-	public static Connection getMySQLConn() {
-		// TODO
-		try {
-			Properties prop = new Properties();
-			prop.load(new FileInputStream("src/main/resources/db.properties"));
+	static Connection con = null;
 
-			String driver = prop.getProperty("driver");
-			String url = prop.getProperty("url");
-			String userName = prop.getProperty("userName");
-			String password = prop.getProperty("password");
+	public static Connection getMySQLConn() {
+		if (con != null)
+			return con;
+		return getMySQLConnFactory();
+	}
+
+	private static Connection getMySQLConnFactory() {
+
+		try {
+			ResourceBundle rb = ResourceBundle.getBundle("db");
+
+			String driver = rb.getString("driver");
+			String url = rb.getString("url");
+			String userName = rb.getString("userName");
+			String password = rb.getString("password");
 
 			Class.forName(driver);
-			return DriverManager.getConnection(url, userName, password);
+			con = DriverManager.getConnection(url, userName, password);
+			return con;
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -32,8 +39,5 @@ public class DbConnect {
 
 		return null;
 	}
-
-//	public Connection getOraleConn() {}
-//	public Connection getDB2Conn() {}
 
 }
