@@ -17,10 +17,10 @@ import com.project.sapient.utils.DbConnect;
 public class UserRegisterDOO implements IUserRegisterDAO {
 
 	@Override
-	public boolean insertUser(UserRegister user) {
+	public boolean insertUser(UserCredential user) {
 		try {
 			passwordCheck(user.getPassword());
-			duplicateEmail(user.getEmailId());
+			duplicateEmail(user.getUserEmail());
 		} catch (DuplicateEmail e1) {
 			e1.printStackTrace();
 			return false;
@@ -32,13 +32,12 @@ public class UserRegisterDOO implements IUserRegisterDAO {
 			return false;
 		}
 
-		String sql = "insert into UserRegister values(?,?,?,?)";
+		String sql = "insert into UserRegister (userName,emailId,password) values(?,?,?)";
 		try {
 			PreparedStatement ps = DbConnect.getMySQLConn().prepareStatement(sql);
-			ps.setInt(1, user.getUserId());
-			ps.setString(2, user.getUserName());
-			ps.setString(3, user.getEmailId());
-			ps.setString(4, user.getPassword());
+			ps.setString(1, user.getUserName());
+			ps.setString(2, user.getUserEmail());
+			ps.setString(3, user.getPassword());
 
 			return ps.executeUpdate() > 0;
 		} catch (SQLException e) {

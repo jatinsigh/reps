@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sapient.Exceptions.PasswordIsWeak;
 import com.project.sapient.Exceptions.PasswordTooSmall;
+import com.project.sapient.dao.RequirementForChangePassword;
 import com.project.sapient.dao.UserRegisterDOO;
 import com.project.sapient.entity.UserRegister;
 import com.project.sapient.interfaces.IUserRegisterDAO;

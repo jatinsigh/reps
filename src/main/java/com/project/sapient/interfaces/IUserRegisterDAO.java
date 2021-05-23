@@ -2,11 +2,12 @@ package com.project.sapient.interfaces;
 
 import java.util.List;
 
+import com.project.sapient.dao.UserCredential;
 import com.project.sapient.entity.UserRegister;
 
 public interface IUserRegisterDAO {
 
-	public boolean insertUser(UserRegister user);
+	public boolean insertUser(UserCredential user);
 
 	public List<UserRegister> getAllUserRegisterInfo();
 

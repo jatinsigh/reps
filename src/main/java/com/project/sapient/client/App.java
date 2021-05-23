@@ -10,8 +10,12 @@ public class App {
 
 		IUserRegisterDAO dao = new UserRegisterDOO();
 
+		// UserCredential user = new UserCredential("Explorer", "hrithik@gmail.com",
+		// "Hrithik@321");
+		// Boolean b = dao.insertUser(user);
+		// System.out.print(b);
 		for (UserRegister user : dao.getAllUserRegisterInfo()) {
-			System.out.println(user.getPassword());
+			System.out.println(user);
 		}
 		// Boolean b = dao.updatePassword("shumbham@gmail.com", "Shu@12345");
 		// System.out.println(b);

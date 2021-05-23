@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sapient.Exceptions.InvalidId;
+import com.project.sapient.dao.UserCredential;
 import com.project.sapient.dao.UserRegisterDOO;
 import com.project.sapient.entity.UserRegister;
 import com.project.sapient.interfaces.IUserRegisterDAO;
@@ -29,7 +30,7 @@ public class UserRegisterController {
 	}
 
 	@PostMapping("/register")
-	public String insertUser(@RequestBody UserRegister user) {
+	public String insertUser(@RequestBody UserCredential user) {
 		return dao.insertUser(user) ? "Inserted" : "Not-Inserted";
 	}
 

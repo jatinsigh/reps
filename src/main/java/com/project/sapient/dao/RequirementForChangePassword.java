@@ -1,4 +1,4 @@
-package com.project.sapient.controller;
+package com.project.sapient.dao;
 
 public class RequirementForChangePassword {
 	private String email;
